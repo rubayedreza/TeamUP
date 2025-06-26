@@ -7,18 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="components.css">
     <link rel="stylesheet" href="index.css">
     <meta name="description" content="Connect with DIU students for projects, contests, and collaborative learning. Find teammates based on skills, interests, and academic goals.">
 </head>
 <body>
     <header class="header">
         <nav class="nav-container container">
-            <a href="index.html" class="brand-logo">
-                <div class="logo-icon">
-                    <img src="TeamUp.png" alt="TeamUp DIU Logo">
-                </div>
+            <a href="index.html" class="nav-brand">
+                <img src="TeamUp.png" alt="TeamUp DIU Logo" class="logo-icon">
                 <span class="logo-text">TeamUp DIU</span>
             </a>
             <div class="nav-links" id="mainNavLinks">
@@ -55,13 +51,13 @@
                     Build amazing things together and grow your network within the university community.
                 </p>
                 <div class="hero-buttons">
-                    <a href="register.html" class="btn btn-primary btn-lg" id="registerBtn">
+                    <a href="register.html" class="btn btn-primary" id="registerBtn">
                         <span>Get Started</span>
-                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </a>
-                    <button id="browseProjectsBtn" class="btn btn-secondary btn-lg">
+                    <button id="browseProjectsBtn" class="btn btn-secondary">
                         <span>Browse Projects</span>
                     </button>
                 </div>
@@ -89,44 +85,48 @@
                 <h2>Why Choose TeamUp DIU?</h2>
                 <p>Everything you need to find and collaborate with the best teammates</p>
             </div>
-            <ul class="features-grid">
-                <li class="feature-card card fade-in-up">
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
                     <div class="feature-icon">
-                        <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
                         </svg>
                     </div>
                     <h3>Find Perfect Matches</h3>
                     <p>Advanced matching algorithm connects you with students who complement your skills and share your project goals.</p>
-                </li>
-                <li class="feature-card card fade-in-up">
+                </div>
+                <div class="feature-card fade-in-up">
                     <div class="feature-icon">
-                        <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
                         </svg>
                     </div>
                     <h3>Real-time Collaboration</h3>
                     <p>Stay connected with your team through integrated messaging, file sharing, and project tracking tools.</p>
-                </li>
-                <li class="feature-card card fade-in-up">
+                </div>
+                <div class="feature-card fade-in-up">
                     <div class="feature-icon">
-                         <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
                         </svg>
                     </div>
                     <h3>Skill-based Matching</h3>
                     <p>Filter and find teammates based on programming languages, frameworks, and project experience.</p>
-                </li>
-                <li class="feature-card card fade-in-up">
+                </div>
+                <div class="feature-card fade-in-up">
                     <div class="feature-icon">
-                        <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
                     </div>
                     <h3>Verified Profiles</h3>
                     <p>All users are verified DIU students, ensuring authentic connections within your university community.</p>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -138,8 +138,9 @@
             </div>
             <div class="search-filter">
                 <div class="search-wrapper">
-                    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
                     </svg>
                     <input type="text" id="searchInput" placeholder="Search by project, skills, or name..." class="search-input">
                 </div>
@@ -153,8 +154,8 @@
                     <option value="ml">Machine Learning</option>
                 </select>
             </div>
-            <ul class="projects-grid" id="cardContainer">
-                <li class="project-card card fade-in-up" data-skills="javascript react node.js">
+            <div class="projects-grid" id="cardContainer">
+                <div class="project-card fade-in-up" data-skills="javascript react node.js">
                     <div class="card-header">
                         <div class="user-info">
                             <div class="user-avatar">
@@ -167,8 +168,9 @@
                             </div>
                         </div>
                         <div class="project-urgency urgent">
-                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
                             </svg>
                             2 weeks
                         </div>
@@ -184,15 +186,15 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn btn-primary btn-show-interest" data-owner="John Doe">
-                            <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                             </svg>
                             Show Interest
                         </button>
                         <button class="btn btn-secondary btn-view-profile" data-profile="john-doe">View Profile</button>
                     </div>
-                </li>
-                <li class="project-card card fade-in-up" data-skills="python ml nlp">
+                </div>
+                <div class="project-card fade-in-up" data-skills="python ml nlp">
                     <div class="card-header">
                         <div class="user-info">
                             <div class="user-avatar">
@@ -205,8 +207,9 @@
                             </div>
                         </div>
                         <div class="project-urgency normal">
-                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
                             </svg>
                             1 month
                         </div>
@@ -222,15 +225,15 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn btn-primary btn-show-interest" data-owner="Jane Smith">
-                            <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                             </svg>
                             Show Interest
                         </button>
                         <button class="btn btn-secondary btn-view-profile" data-profile="jane-smith">View Profile</button>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -254,7 +257,7 @@
                 <p>Have questions or feedback? We'd love to hear from you.</p>
             </div>
             <div class="contact-grid">
-                <div class="contact-info card">
+                <div class="contact-info">
                     <h3>Reach Out</h3>
                     <p>Our team is here to help. Feel free to contact us through any of the following channels.</p>
                     <div class="info-item">
@@ -271,22 +274,13 @@
                         <a href="#feedback" class="social-link" aria-label="Give us feedback">Feedback</a>
                     </div>
                 </div>
-                <div class="contact-form-placeholder card">
+                <div class="contact-form-placeholder">
                     <h3>Send Us a Message</h3>
                     <p>Fill out the form below and we'll get back to you as soon as possible.</p>
                     <form class="simple-contact-form">
-                        <div class="form-group">
-                            <label for="contactName" class="visually-hidden">Your Name</label>
-                            <input type="text" id="contactName" name="contactName" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contactEmail" class="visually-hidden">Your Email</label>
-                            <input type="email" id="contactEmail" name="contactEmail" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contactMessage" class="visually-hidden">Your Message</label>
-                            <textarea id="contactMessage" name="contactMessage" placeholder="Your Message" rows="5" required></textarea>
-                        </div>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>
@@ -311,14 +305,12 @@
     </div>
 
     <footer class="footer">
-        <div class="footer-content container">
+        <div class="container">
             <div class="footer-main">
                 <div class="footer-brand">
-                    <a href="index.html" class="brand-logo">
-                         <div class="logo-icon">
-                              <img src="TeamUp.png" alt="TeamUp DIU Logo">
-                         </div>
-                         <span class="logo-text">TeamUp DIU</span>
+                    <a href="index.html" class="nav-brand">
+                        <img src="TeamUp.png" alt="TeamUp DIU Logo" class="logo-icon">
+                        <span class="logo-text">TeamUp DIU</span>
                     </a>
                     <p>Connecting DIU students to build amazing projects together.</p>
                 </div>
@@ -343,13 +335,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom container">
-            <p>&copy; <span id="currentYear">2025</span> TeamUp DIU. Built for DIU students, by DIU students.</p>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2025</span> TeamUp DIU. Built for DIU students, by DIU students.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="utils.js" type="module"></script>
     <script src="index.js" type="module"></script>
 </body>
 </html>
