@@ -13,19 +13,19 @@
     <meta name="description" content="Connect with DIU students for projects, contests, and collaborative learning. Find teammates based on skills, interests, and academic goals.">
 </head>
 <body>
-    <header class="header-main">
-        <nav class="nav-main-container container">
-            <a href="index.html" class="nav-brand">
-                <div class="nav-brand-logo-icon-wrapper">
+    <header class="header">
+        <nav class="nav-container container">
+            <a href="index.html" class="brand-logo">
+                <div class="logo-icon">
                     <img src="TeamUp.png" alt="TeamUp DIU Logo">
                 </div>
-                <span class="nav-brand-logo-text">TeamUp DIU</span>
+                <span class="logo-text">TeamUp DIU</span>
             </a>
-            <div class="nav-main-links" id="mainNavLinks">
-                <a href="#about" class="nav-main-link">About</a>
-                <a href="#features" class="nav-main-link">Features</a>
-                <a href="#contact" class="nav-main-link">Contact</a>
-                <a href="login.html" class="nav-main-cta" id="loginBtn">Sign In</a>
+            <div class="nav-links" id="mainNavLinks">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="login.html" class="nav-cta" id="loginBtn">Sign In</a>
             </div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mainNavLinks">
                 <span></span>
@@ -61,7 +61,7 @@
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </a>
-                    <button class="btn btn-secondary btn-lg" onclick="scrollToSection('featured')">
+                    <button id="browseProjectsBtn" class="btn btn-secondary btn-lg">
                         <span>Browse Projects</span>
                     </button>
                 </div>
@@ -83,7 +83,7 @@
         </div>
     </section>
 
-    <section class="features section-padding" id="features">
+    <section class="features" id="features">
         <div class="container">
             <div class="section-header">
                 <h2>Why Choose TeamUp DIU?</h2>
@@ -110,7 +110,7 @@
                 </li>
                 <li class="feature-card card fade-in-up">
                     <div class="feature-icon">
-                        <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                         <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
                         </svg>
                     </div>
@@ -119,7 +119,7 @@
                 </li>
                 <li class="feature-card card fade-in-up">
                     <div class="feature-icon">
-                         <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <svg class="icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
                     </div>
@@ -130,21 +130,20 @@
         </div>
     </section>
 
-    <section class="featured section-padding" id="featured">
+    <section class="featured" id="featured">
         <div class="container">
             <div class="section-header">
                 <h2>Recent Team Requests</h2>
                 <p>Discover exciting projects looking for talented teammates</p>
             </div>
-
-            <div class="search-filter-controls">
+            <div class="search-filter">
                 <div class="search-wrapper">
-                    <svg class="icon search-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
                     </svg>
-                    <input type="text" id="searchInput" placeholder="Search by project, skills, or name..." class="form-input">
+                    <input type="text" id="searchInput" placeholder="Search by project, skills, or name..." class="search-input">
                 </div>
-                <select id="skillFilter" class="form-select">
+                <select id="skillFilter" class="skill-filter">
                     <option value="">All Skills</option>
                     <option value="javascript">JavaScript</option>
                     <option value="python">Python</option>
@@ -154,14 +153,13 @@
                     <option value="ml">Machine Learning</option>
                 </select>
             </div>
-
             <ul class="projects-grid" id="cardContainer">
-                <li class="project-card card fade-in-up" data-skills="javascript react">
+                <li class="project-card card fade-in-up" data-skills="javascript react node.js">
                     <div class="card-header">
                         <div class="user-info">
                             <div class="user-avatar">
                                 <span>JD</span>
-                                <div class="status-indicator online"></div>
+                                <div class="status-indicator status-online"></div>
                             </div>
                             <div class="user-details">
                                 <h3>John Doe</h3>
@@ -169,7 +167,7 @@
                             </div>
                         </div>
                         <div class="project-urgency urgent">
-                             <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
                             </svg>
                             2 weeks
@@ -185,28 +183,29 @@
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="btn btn-primary" onclick="showInterestModal('John Doe')">
+                        <button class="btn btn-primary btn-show-interest" data-owner="John Doe">
                             <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                             </svg>
                             Show Interest
                         </button>
-                        <button class="btn btn-secondary" onclick="viewProfile('john-doe')">View Profile</button>
+                        <button class="btn btn-secondary btn-view-profile" data-profile="john-doe">View Profile</button>
                     </div>
                 </li>
-                <li class="project-card card fade-in-up" data-skills="python ml">
+                <li class="project-card card fade-in-up" data-skills="python ml nlp">
                     <div class="card-header">
                         <div class="user-info">
                             <div class="user-avatar">
                                 <span>JS</span>
-                                <div class="status-indicator busy"></div> </div>
+                                <div class="status-indicator status-busy"></div>
+                            </div>
                             <div class="user-details">
                                 <h3>Jane Smith</h3>
                                 <span class="department">CSE</span>
                             </div>
                         </div>
                         <div class="project-urgency normal">
-                             <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
                             </svg>
                             1 month
@@ -222,20 +221,20 @@
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="btn btn-primary" onclick="showInterestModal('Jane Smith')">
+                        <button class="btn btn-primary btn-show-interest" data-owner="Jane Smith">
                             <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                             </svg>
                             Show Interest
                         </button>
-                        <button class="btn btn-secondary" onclick="viewProfile('jane-smith')">View Profile</button>
+                        <button class="btn btn-secondary btn-view-profile" data-profile="jane-smith">View Profile</button>
                     </div>
                 </li>
             </ul>
         </div>
     </section>
 
-    <section class="about-section section-padding" id="about">
+    <section class="about-section" id="about">
         <div class="container">
             <div class="section-header">
                 <h2>About TeamUp DIU</h2>
@@ -248,7 +247,7 @@
         </div>
     </section>
 
-    <section class="contact-section section-padding" id="contact">
+    <section class="contact-section" id="contact">
         <div class="container">
             <div class="section-header">
                 <h2>Get in Touch</h2>
@@ -272,21 +271,21 @@
                         <a href="#feedback" class="social-link" aria-label="Give us feedback">Feedback</a>
                     </div>
                 </div>
-                <div class="contact-form-wrapper card">
+                <div class="contact-form-placeholder card">
                     <h3>Send Us a Message</h3>
                     <p>Fill out the form below and we'll get back to you as soon as possible.</p>
-                    <form class="contact-form">
+                    <form class="simple-contact-form">
                         <div class="form-group">
                             <label for="contactName" class="visually-hidden">Your Name</label>
-                            <input type="text" id="contactName" name="contactName" class="form-input" placeholder="Your Name" required>
+                            <input type="text" id="contactName" name="contactName" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
                             <label for="contactEmail" class="visually-hidden">Your Email</label>
-                            <input type="email" id="contactEmail" name="contactEmail" class="form-input" placeholder="Your Email" required>
+                            <input type="email" id="contactEmail" name="contactEmail" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
                             <label for="contactMessage" class="visually-hidden">Your Message</label>
-                            <textarea id="contactMessage" name="contactMessage" class="form-textarea" placeholder="Your Message" rows="5" required></textarea>
+                            <textarea id="contactMessage" name="contactMessage" placeholder="Your Message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -295,58 +294,61 @@
         </div>
     </section>
 
-    <div id="interestModalBackdrop" class="modal-backdrop">
-        <div id="interestModal" class="modal-content" role="dialog" aria-modal="true" aria-labelledby="interestModalTitle">
+    <div id="interestModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="interestModalTitle">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2 id="interestModalTitle">Show Interest</h2>
-                <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+                <button class="close" aria-label="Close modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>To express interest in <span id="projectOwner" class="font-semibold"></span>'s project, please sign in or create an account first.</p>
+                <p>To express interest in <span id="projectOwner" style="font-weight: 600;"></span>'s project, please sign in or create an account first.</p>
             </div>
            <div class="modal-actions">
-                <button class="btn btn-primary" onclick="window.location.href='login.html'">Sign In</button>
-                <button class="btn btn-secondary" onclick="window.location.href='register.html'">Create Account</button>
+                <button class="btn btn-primary" id="modalSignInBtn">Sign In</button>
+                <button class="btn btn-secondary" id="modalCreateAccountBtn">Create Account</button>
             </div>
         </div>
     </div>
 
-    <footer class="footer-main">
-        <div class="container footer-content-grid">
-            <div class="footer-brand-info">
-                 <a href="index.html" class="nav-brand">
-                    <div class="nav-brand-logo-icon-wrapper">
-                         <img src="TeamUp.png" alt="TeamUp DIU Logo">
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand-logo">
+                         <div class="logo-icon">
+                              <img src="TeamUp.png" alt="TeamUp DIU Logo">
+                         </div>
+                         <span class="logo-text">TeamUp DIU</span>
+                    </a>
+                    <p>Connecting DIU students to build amazing projects together.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Platform</h4>
+                        <a href="#about" class="footer-link">About</a>
+                        <a href="#features" class="footer-link">Features</a>
+                        <a href="#contact" class="footer-link">Contact</a>
                     </div>
-                    <span class="nav-brand-logo-text">TeamUp DIU</span>
-                </a>
-                <p>Connecting DIU students to build amazing projects together.</p>
-            </div>
-            <div class="footer-links-columns-container">
-                <div class="footer-links-column">
-                    <h4>Platform</h4>
-                    <a href="#about" class="footer-link">About</a>
-                    <a href="#features" class="footer-link">Features</a>
-                    <a href="#contact" class="footer-link">Contact</a>
-                </div>
-                <div class="footer-links-column">
-                    <h4>Support</h4>
-                    <a href="#help" class="footer-link">Help Center</a>
-                    <a href="#privacy" class="footer-link">Privacy Policy</a>
-                    <a href="#terms" class="footer-link">Terms of Service</a>
-                </div>
-                <div class="footer-links-column">
-                    <h4>Community</h4>
-                    <a href="#discord" class="footer-link">Discord</a>
-                    <a href="#github" class="footer-link">GitHub</a>
-                    <a href="#feedback" class="footer-link">Feedback</a>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <a href="#help" class="footer-link">Help Center</a>
+                        <a href="#privacy" class="footer-link">Privacy Policy</a>
+                        <a href="#terms" class="footer-link">Terms of Service</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <a href="#discord" class="footer-link">Discord</a>
+                        <a href="#github" class="footer-link">GitHub</a>
+                        <a href="#feedback" class="footer-link">Feedback</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="container footer-bottom-text">
+        <div class="footer-bottom container">
             <p>&copy; <span id="currentYear">2025</span> TeamUp DIU. Built for DIU students, by DIU students.</p>
         </div>
     </footer>
+
     <script src="utils.js" type="module"></script>
     <script src="index.js" type="module"></script>
 </body>
