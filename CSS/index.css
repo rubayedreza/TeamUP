@@ -8,7 +8,6 @@
     box-sizing: border-box;
 }
 
-/* Base styles */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
@@ -37,6 +36,9 @@ body {
 }
 
 .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -58,12 +60,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
 }
 
 .logo-icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    border-radius: 8px;
 }
 
 .logo-text {
@@ -123,12 +129,9 @@ body {
 
 .mobile-menu-toggle {
     display: none;
-    background: transparent;
-    border: none;
     flex-direction: column;
     cursor: pointer;
-    gap: 5px;
-    padding: 5px;
+    gap: 4px;
 }
 
 .mobile-menu-toggle span {
@@ -136,13 +139,12 @@ body {
     height: 3px;
     background: #ffffff;
     transition: all 0.3s ease;
-    border-radius: 2px;
 }
 
 /* Hero Section */
 .hero {
     position: relative;
-    padding-top: 70px; /* Header height */
+    padding-top: 70px;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -310,7 +312,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    list-style: none; /* Remove bullet points */
+    list-style: none;
 }
 
 .feature-card {
@@ -354,7 +356,7 @@ body {
 
 /* About Section */
 .about-content {
-    max-width: 800px; /* Corrected from 2000px to a more readable width */
+    max-width: 800px;
     margin: auto;
     text-align: justify;
     color: #d1d5db;
@@ -431,7 +433,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
-    list-style: none; /* Remove bullet points */
+    list-style: none;
 }
 
 .project-card {
@@ -441,7 +443,7 @@ body {
     padding: 1.5rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
-    display: flex; /* Flexbox for alignment */
+    display: flex;
     flex-direction: column;
 }
 
@@ -516,7 +518,7 @@ body {
 
 .card-content {
     margin-bottom: 1.5rem;
-    flex-grow: 1; /* Allows content to push actions down */
+    flex-grow: 1;
 }
 
 .project-title {
@@ -549,7 +551,7 @@ body {
 .card-actions {
     display: flex;
     gap: 1rem;
-    margin-top: auto; /* Pushes to the bottom */
+    margin-top: auto;
 }
 
 .card-actions .btn {
@@ -621,7 +623,7 @@ body {
 }
 
 .form-group { margin-bottom: 1rem; }
-.visually-hidden { display: none; } /* Assuming this class exists from a global stylesheet */
+.visually-hidden { display: none; }
 
 .simple-contact-form input, .simple-contact-form textarea {
     width: 100%;
@@ -661,7 +663,7 @@ body {
     justify-content: center;
 }
 
-.modal.active { display: flex; } /* To show the modal */
+.modal.active { display: flex; }
 
 .modal-content {
     background: rgba(30, 41, 59, 0.95);
