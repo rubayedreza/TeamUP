@@ -4,39 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - TeamUp DIU</title>
+    <link rel="stylesheet" href="/CSS/register.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="components.css">
-    <link rel="stylesheet" href="register.css">
 </head>
 <body>
-    <header class="header-main">
-        <nav class="nav-main-container container">
-             <a href="index.html" class="nav-brand">
-                <div class="nav-brand-logo-icon-wrapper">
-                    <img src="TeamUp.png" alt="TeamUp DIU Logo">
-                </div>
-                <span class="nav-brand-logo-text">TeamUp DIU</span>
-            </a>
-            <div class="nav-main-links" id="mainNavLinks">
-                <a href="index.html" class="nav-main-link">Home</a>
-                <a href="index.html#about" class="nav-main-link">About</a>
-                <a href="index.html#contact" class="nav-main-link">Contact</a>
-                <a href="login.html" class="nav-main-cta">Sign In</a>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="brand-logo">
+                    <img src="/img/TeamUp.png" alt="TeamUp DIU Logo" class="logo-icon">
+                    <span class="logo-text">TeamUp DIU</span>
+                </a>
             </div>
-            </nav>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="login.html" class="nav-cta">Sign In</a>
+            </div>
+        </nav>
     </header>
 
     <main class="main-content">
         <div class="register-section">
-            <div class="register-container card"> <div class="register-header">
+            <div class="register-container">
+                <div class="register-header">
                     <h1>Join TeamUp DIU</h1>
                     <p>Create your account and start connecting with teammates</p>
                 </div>
 
-                <div class="progress-indicator-container">
+                <div class="progress-container">
                     <div class="progress-bar">
                         <div class="progress-fill" id="progressFill"></div>
                     </div>
@@ -44,151 +43,181 @@
                 </div>
 
                 <form class="register-form" id="registerForm" novalidate>
-                    <div class="form-step active" id="step1" role="tabpanel" aria-labelledby="step1-tab">
-                        <div class="form-group">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required aria-describedby="fullNameError">
-                            <span class="error-message" id="fullNameError" role="alert"></span>
+                    <div class="form-step active" id="step1">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter your first name" required>
+                                <span class="error-message" id="firstNameError"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Enter your last name" required>
+                                <span class="error-message" id="lastNameError"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="university" class="form-label">University Name</label>
+                                <input type="text" id="university" name="university" class="form-input" placeholder="Enter your university name" required>
+                                <span class="error-message" id="universityError"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="studentId" class="form-label">Student ID</label>
-                            <input type="text" id="studentId" name="studentId" class="form-input" placeholder="e.g., 221-15-4567" required aria-describedby="studentIdError">
-                            <span class="error-message" id="studentIdError" role="alert"></span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentId" class="form-label">Student ID</label>
+                                <input type="text" id="studentId" name="studentId" class="form-input" placeholder="e.g., 221-15-4567" required>
+                                <span class="error-message" id="studentIdError"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="department" class="form-label">Department</label>
-                            <select id="department" name="department" class="form-select" required aria-describedby="departmentError">
-                                <option value="">Select your department</option>
-                                <option value="CSE">Computer Science & Engineering</option>
-                                <option value="SWE">Software Engineering</option>
-                                <option value="EEE">Electrical & Electronics Engineering</option>
-                                <option value="CE">Computer Engineering</option>
-                                <option value="TE">Textile Engineering</option>
-                                <option value="BBA">Business Administration</option>
-                                <option value="MBA">Masters in Business Administration</option>
-                                <option value="English">English</option>
-                                <option value="LAW">Law</option>
-                                <option value="Pharmacy">Pharmacy</option>
-                            </select>
-                            <span class="error-message" id="departmentError" role="alert"></span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="department" class="form-label">Department</label>
+                                <select id="department" name="department" class="form-input form-select" required>
+                                    <option value="">Select your department</option>
+                                    <option value="CSE">Computer Science & Engineering</option>
+                                    <option value="SWE">Software Engineering</option>
+                                    <option value="EEE">Electrical & Electronics Engineering</option>
+                                    <option value="CE">Computer Engineering</option>
+                                    <option value="TE">Textile Engineering</option>
+                                    <option value="BBA">Business Administration</option>
+                                    <option value="MBA">Masters in Business Administration</option>
+                                    <option value="English">English</option>
+                                    <option value="LAW">Law</option>
+                                    <option value="Pharmacy">Pharmacy</option>
+                                </select>
+                                <span class="error-message" id="departmentError"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="semester" class="form-label">Current Semester</label>
-                            <select id="semester" name="semester" class="form-select" required aria-describedby="semesterError">
-                                <option value="">Select semester</option>
-                                <option value="1">1st Semester</option>
-                                <option value="2">2nd Semester</option>
-                                <option value="3">3rd Semester</option>
-                                <option value="4">4th Semester</option>
-                                <option value="5">5th Semester</option>
-                                <option value="6">6th Semester</option>
-                                <option value="7">7th Semester</option>
-                                <option value="8">8th Semester</option>
-                                <option value="9">9th Semester</option>
-                                <option value="10">10th Semester</option>
-                                <option value="11">11th Semester</option>
-                                <option value="12">12th Semester</option>
-                            </select>
-                            <span class="error-message" id="semesterError" role="alert"></span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="semester" class="form-label">Current Semester</label>
+                                <select id="semester" name="semester" class="form-input form-select" required>
+                                    <option value="">Select semester</option>
+                                    <option value="1">1st Semester</option>
+                                    <option value="2">2nd Semester</option>
+                                    <option value="3">3rd Semester</option>
+                                    <option value="4">4th Semester</option>
+                                    <option value="5">5th Semester</option>
+                                    <option value="6">6th Semester</option>
+                                    <option value="7">7th Semester</option>
+                                    <option value="8">8th Semester</option>
+                                    <option value="9">9th Semester</option>
+                                    <option value="10">10th Semester</option>
+                                    <option value="11">11th Semester</option>
+                                    <option value="12">12th Semester</option>
+                                </select>
+                                <span class="error-message" id="semesterError"></span>
+                            </div>
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-lg step-button" id="nextBtn">
+                        <button type="button" class="step-button" id="nextBtn">
                             <span>Next Step</span>
-                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <polyline points="9,18 15,12 9,6"></polyline>
                             </svg>
                         </button>
                     </div>
 
-                    <div class="form-step" id="step2" role="tabpanel" aria-labelledby="step2-tab">
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required aria-describedby="emailError">
-                            <span class="error-message" id="emailError" role="alert"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="form-label">Password</label>
-                            <div class="password-wrapper">
-                                <input type="password" id="password" name="password" class="form-input" placeholder="Create a strong password" required aria-describedby="passwordError passwordStrength">
-                                <button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password">
-                                     <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>
-                                </button>
+                    <div class="form-step" id="step2">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                                <span class="error-message" id="emailError"></span>
                             </div>
-                            <div class="password-strength-indicator" id="passwordStrength" aria-live="polite"></div>
-                            <span class="error-message" id="passwordError" role="alert"></span>
                         </div>
-
-                        <div class="form-group">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Confirm your password" required aria-describedby="confirmPasswordError">
-                            <span class="error-message" id="confirmPasswordError" role="alert"></span>
+                        <div class="form-row">
+                            <div class="form-group password-wrapper">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" name="password" class="form-input" placeholder="Create a password" required>
+                                <span class="error-message" id="passwordError"></span>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="skillInput" class="form-label">Skills & Interests</label>
-                            <div class="skills-input-container">
-                                <input type="text" id="skillInput" class="form-input" placeholder="Type a skill and press Enter">
-                                <ul class="skills-list" id="skillsList" aria-label="Selected skills"></ul>
-                                <input type="hidden" id="skills" name="skills"> </div>
-                            <small class="form-hint">Add skills like JavaScript, Python, UI/UX, etc. Press Enter to add.</small>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Confirm your password" required>
+                                <span class="error-message" id="confirmPasswordError"></span>
+                            </div>
                         </div>
-
-                        <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-group skills-container">
+                                <label class="form-label">Skills & Interests</label>
+                                <div class="skills-checkbox-grid">
+                                    <label><input type="checkbox" name="skills" value="C"> C</label>
+                                    <label><input type="checkbox" name="skills" value="C++"> C++</label>
+                                    <label><input type="checkbox" name="skills" value="Java"> Java</label>
+                                    <label><input type="checkbox" name="skills" value="Python"> Python</label>
+                                    <label><input type="checkbox" name="skills" value="HTML"> HTML</label>
+                                    <label><input type="checkbox" name="skills" value="CSS"> CSS</label>
+                                    <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
+                                    <label><input type="checkbox" name="skills" value="SQL"> SQL</label>
+                                    <label><input type="checkbox" name="skills" value="PHP"> PHP</label>
+                                    <label><input type="checkbox" name="skills" value="Competitive Programming"> Competitive Programming</label>
+                                    <label><input type="checkbox" name="skills" value="Web Development"> Web Development</label>
+                                    <label><input type="checkbox" name="skills" value="App Development"> App Development</label>
+                                </div>
+                                <div class="other-skill-input">
+                                    <label for="otherSkill">Other:</label>
+                                    <input type="text" id="otherSkill" name="otherSkill" class="form-input" placeholder="Add other skill">
+                                </div>
+                                <span class="error-message" id="skillsError"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="checkbox-group">
-                                <input type="checkbox" id="agreeTerms" name="agreeTerms" class="checkbox" required aria-describedby="agreeTermsError">
+                                <input type="checkbox" id="agreeTerms" name="agreeTerms" class="checkbox" required>
                                 <label for="agreeTerms" class="checkbox-label">
-                                    I agree to the <a href="#terms" class="highlight-link" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="#privacy" class="highlight-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                                    I agree to the <a href="#terms" class="terms-link">Terms & Conditions</a>
                                 </label>
                             </div>
-                            <span class="error-message" id="agreeTermsError" role="alert"></span>
+                            <span class="error-message" id="agreeTermsError"></span>
                         </div>
-
-                        <div class="form-step-buttons">
-                            <button type="button" class="btn btn-secondary btn-lg step-button" id="prevBtn">
-                                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <polyline points="15,18 9,12 15,6"></polyline>
-                                </svg>
-                                <span>Previous</span>
-                            </button>
-                            <button type="submit" class="btn btn-primary btn-lg submit-button" id="submitBtn">
+                        <div class="form-buttons">
+                            <button type="button" class="step-button secondary" id="prevBtn">Previous</button>
+                            <button type="submit" class="submit-button" id="submitBtn">
                                 <span class="button-text">Create Account</span>
-                                 <div class="button-loading-spinner-container hidden">
-                                    <div class="button-loading-spinner"></div>
-                                    <span>Creating account...</span>
-                                </div>
+                                <span class="button-loading hidden"><span class="loading-spinner"></span></span>
                             </button>
                         </div>
                     </div>
                 </form>
 
-                <div class="alternate-action-section">
-                    <p>Already have an account? <a href="login.html" class="highlight-link">Sign In</a></p>
+                <div class="signin-section">
+                    <p>Already have an account? <a href="login.html" class="signin-link">Sign In</a></p>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="footer-main">
-        <div class="container footer-simple-content">
-             <div class="footer-auth-links">
+    <div id="congratsModal" class="hidden">
+        <div class="modal-content">
+            <h2>Congratulations!</h2>
+            <p>Your account has been created successfully.</p>
+            <button id="goToLoginBtn" class="submit-button">Go to Sign In</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
                 <a href="#privacy" class="footer-link">Privacy Policy</a>
                 <a href="#terms" class="footer-link">Terms of Service</a>
                 <a href="#support" class="footer-link">Support</a>
             </div>
-            <div class="footer-bottom-text">
-                <p>&copy; <span id="currentYear">2025</span> TeamUp DIU. All rights reserved.</p>
+            <div class="footer-text">
+                <p>&copy; 2025 TeamUp DIU. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="utils.js" type="module"></script>
-    <script src="register.js" type="module"></script>
+    <script src="/JS/register.js"></script>
+
 </body>
 </html>

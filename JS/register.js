@@ -24,9 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const skillInput = document.getElementById('skillInput');
     const skillsList = document.getElementById('skillsList');
     const skillsHidden = document.getElementById('skills'); // For UI, not sent to backend yet
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const universityInput = document.getElementById('university');
 
     let currentStep = 1;
-    let skills = []; // For UI, not sent to backend yet
+    let skills = [];
 
     // Create a general error message element if it doesn't exist in HTML
     let generalErrorMessageElement = document.getElementById('generalRegisterError');
@@ -94,9 +97,40 @@ document.addEventListener('DOMContentLoaded', () => {
         if (generalErrorMessageElement) generalErrorMessageElement.textContent = message;
     }
 
+    // Validation helpers
+    function validateName(name) {
+        return /^[A-Za-z]{4,}$/.test(name);
+    }
+    function validatePassword(pw) {
+        return (
+            pw.length >= 8 &&
+            pw.length <= 32 &&
+            /[A-Z]/.test(pw) &&
+            /[a-z]/.test(pw) &&
+            /[^A-Za-z0-9]/.test(pw)
+        );
+    }
+
     function validateStep1() {
         let isValid = true;
-        if (!fullNameInput?.value.trim()) { showError(fullNameInput, 'Full name is required'); isValid = false; } else { showSuccess(fullNameInput); }
+        if (!firstNameInput?.value.trim() || !validateName(firstNameInput.value.trim())) {
+            showError(firstNameInput, 'First name must be at least 4 letters, no numbers.');
+            isValid = false;
+        } else {
+            showSuccess(firstNameInput);
+        }
+        if (!lastNameInput?.value.trim() || !validateName(lastNameInput.value.trim())) {
+            showError(lastNameInput, 'Last name must be at least 4 letters, no numbers.');
+            isValid = false;
+        } else {
+            showSuccess(lastNameInput);
+        }
+        if (!universityInput?.value.trim()) {
+            showError(universityInput, 'University name is required.');
+            isValid = false;
+        } else {
+            showSuccess(universityInput);
+        }
         if (!studentIdInput?.value.trim() || !validateStudentId(studentIdInput.value.trim())) { showError(studentIdInput, 'Valid Student ID required (e.g., XXX-XX-XXXX)'); isValid = false; } else { showSuccess(studentIdInput); }
         if (!departmentInput?.value) { showError(departmentInput, 'Department is required'); isValid = false; } else { showSuccess(departmentInput); }
         if (!semesterInput?.value) { showError(semesterInput, 'Semester is required'); isValid = false; } else { showSuccess(semesterInput); }
@@ -105,15 +139,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function validateStep2() {
         let isValid = true;
-        clearGeneralError(); // Clear previous general errors
+        clearGeneralError();
         if (!emailInput?.value.trim() || !validateEmail(emailInput.value.trim())) { showError(emailInput, 'Valid email is required'); isValid = false; } else { showSuccess(emailInput); }
         
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
 
-        if (password.length < 6) { showError(passwordInput, 'Password must be at least 6 characters'); isValid = false; }
-        else if (getPasswordStrength(password).strength === 'weak') { showError(passwordInput, 'Please create a stronger password'); isValid = false;}
-        else { showSuccess(passwordInput); }
+        if (!validatePassword(password)) {
+            showError(passwordInput, 'Password must be 8-32 chars, 1 special, 1 capital, 1 small letter.');
+            isValid = false;
+        } else {
+            showSuccess(passwordInput);
+        }
 
         if (confirmPassword === '') { showError(confirmPasswordInput, 'Please confirm your password'); isValid = false; }
         else if (password !== confirmPassword) { showError(confirmPasswordInput, 'Passwords do not match'); isValid = false; }
@@ -142,6 +179,138 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (confirmPasswordInput.value) showError(confirmPasswordInput, 'Passwords do not match');
     }
     agreeTermsInput?.addEventListener('change', () => { if (agreeTermsInput.checked) showSuccess(agreeTermsInput); });
+    firstNameInput?.addEventListener('input', () => {
+        if (!validateName(firstNameInput.value.trim())) {
+            showError(firstNameInput, 'First name must be at least 4 letters, only letters allowed.');
+        } else {
+            showSuccess(firstNameInput);
+        }
+    });
+    lastNameInput?.addEventListener('input', () => {
+        if (!validateName(lastNameInput.value.trim())) {
+            showError(lastNameInput, 'Last name must be at least 4 letters, only letters allowed.');
+        } else {
+            showSuccess(lastNameInput);
+        }
+    });
+    universityInput?.addEventListener('input', () => {
+        if (!universityInput.value.trim()) {
+            showError(universityInput, 'University name is required.');
+        } else {
+            showSuccess(universityInput);
+        }
+    });
+    studentIdInput?.addEventListener('input', () => {
+        if (!validateStudentId(studentIdInput.value.trim())) {
+            showError(studentIdInput, 'Student ID must be in format 000-00-0000.');
+        } else {
+            showSuccess(studentIdInput);
+        }
+    });
+    departmentInput?.addEventListener('change', () => {
+        if (!departmentInput.value) {
+            showError(departmentInput, 'Please select your department.');
+        } else {
+            showSuccess(departmentInput);
+        }
+    });
+    semesterInput?.addEventListener('change', () => {
+        if (!semesterInput.value) {
+            showError(semesterInput, 'Please select your semester.');
+        } else {
+            showSuccess(semesterInput);
+        }
+    });
+    emailInput?.addEventListener('input', () => {
+        if (!validateEmail(emailInput.value.trim())) {
+            showError(emailInput, 'Enter a valid email address.');
+        } else {
+            showSuccess(emailInput);
+        }
+    });
+    passwordInput?.addEventListener('input', () => {
+        const strength = getPasswordStrength(passwordInput.value);
+        if(passwordStrengthIndicator) passwordStrengthIndicator.textContent = strength.text;
+        if(passwordStrengthIndicator) passwordStrengthIndicator.className = 'password-strength ' + strength.strength;
+        if (passwordInput.value.length >= 6 && strength.strength !== 'weak') showSuccess(passwordInput);
+        if (confirmPasswordInput.value) validateConfirmPasswordRealtime();
+    });
+    confirmPasswordInput?.addEventListener('input', validateConfirmPasswordRealtime);
+    function validateConfirmPasswordRealtime() {
+        if (confirmPasswordInput.value === passwordInput.value && confirmPasswordInput.value) showSuccess(confirmPasswordInput);
+        else if (confirmPasswordInput.value) showError(confirmPasswordInput, 'Passwords do not match');
+    }
+    agreeTermsInput?.addEventListener('change', () => { if (agreeTermsInput.checked) showSuccess(agreeTermsInput); });
+    firstNameInput?.addEventListener('input', () => {
+        if (!validateName(firstNameInput.value.trim())) {
+            showError(firstNameInput, 'First name must be at least 4 letters, only letters allowed.');
+        } else {
+            showSuccess(firstNameInput);
+        }
+    });
+    lastNameInput?.addEventListener('input', () => {
+        if (!validateName(lastNameInput.value.trim())) {
+            showError(lastNameInput, 'Last name must be at least 4 letters, only letters allowed.');
+        } else {
+            showSuccess(lastNameInput);
+        }
+    });
+    universityInput?.addEventListener('input', () => {
+        if (!universityInput.value.trim()) {
+            showError(universityInput, 'University name is required.');
+        } else {
+            showSuccess(universityInput);
+        }
+    });
+    studentIdInput?.addEventListener('input', () => {
+        if (!validateStudentId(studentIdInput.value.trim())) {
+            showError(studentIdInput, 'Student ID must be in format 000-00-0000.');
+        } else {
+            showSuccess(studentIdInput);
+        }
+    });
+    departmentInput?.addEventListener('change', () => {
+        if (!departmentInput.value) {
+            showError(departmentInput, 'Please select your department.');
+        } else {
+            showSuccess(departmentInput);
+        }
+    });
+    semesterInput?.addEventListener('change', () => {
+        if (!semesterInput.value) {
+            showError(semesterInput, 'Please select your semester.');
+        } else {
+            showSuccess(semesterInput);
+        }
+    });
+    emailInput?.addEventListener('input', () => {
+        if (!validateEmail(emailInput.value.trim())) {
+            showError(emailInput, 'Enter a valid email address.');
+        } else {
+            showSuccess(emailInput);
+        }
+    });
+    passwordInput?.addEventListener('input', () => {
+        if (!validatePassword(passwordInput.value)) {
+            showError(passwordInput, 'Password must be 8-32 chars, 1 special, 1 capital, 1 small letter.');
+        } else {
+            showSuccess(passwordInput);
+        }
+    });
+    confirmPasswordInput?.addEventListener('input', () => {
+        if (confirmPasswordInput.value !== passwordInput.value || confirmPasswordInput.value === '') {
+            showError(confirmPasswordInput, 'Passwords do not match.');
+        } else {
+            showSuccess(confirmPasswordInput);
+        }
+    });
+    agreeTermsInput?.addEventListener('change', () => {
+        if (!agreeTermsInput.checked) {
+            showError(agreeTermsInput, 'You must agree to the terms.');
+        } else {
+            showSuccess(agreeTermsInput);
+        }
+    });
 
 
     function updateProgress() {
@@ -171,112 +340,48 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgress();
     });
 
-    skillInput?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && skillInput.value.trim() !== '') {
+    skillInput?.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && skillInput.value.trim()) {
             e.preventDefault();
             const skill = skillInput.value.trim();
-            if (!skills.includes(skill) && skills.length < 10) { // Limit number of skills
+            if (!skills.includes(skill)) {
                 skills.push(skill);
-                renderSkills();
+                const tag = document.createElement('span');
+                tag.className = 'skill-tag';
+                tag.textContent = skill;
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'skill-remove';
+                removeBtn.textContent = '×';
+                removeBtn.onclick = function() {
+                    skills = skills.filter(s => s !== skill);
+                    tag.remove();
+                    // Trigger validation
+                    skillsList.dispatchEvent(new Event('DOMSubtreeModified'));
+                };
+                tag.appendChild(removeBtn);
+                skillsList.appendChild(tag);
                 skillInput.value = '';
-            } else if (skills.length >= 10) {
-                alert('You can add a maximum of 10 skills.');
+                // Trigger validation
+                skillsList.dispatchEvent(new Event('DOMSubtreeModified'));
+            } else {
+                showError(skillInput, 'Skill already added.');
             }
         }
     });
 
-    function renderSkills() {
-        if (!skillsList || !skillsHidden) return;
-        skillsList.innerHTML = '';
-        skills.forEach((skill, index) => {
-            const skillTag = document.createElement('span');
-            skillTag.className = 'skill-tag';
-            skillTag.innerHTML = `${skill} <button type="button" class="skill-remove" data-index="${index}" aria-label="Remove skill ${skill}">&times;</button>`;
-            skillsList.appendChild(skillTag);
-        });
-        skillsHidden.value = JSON.stringify(skills); // For UI, not sent to backend yet
-    }
+    const congratsModal = document.getElementById('congratsModal');
+    const goToLoginBtn = document.getElementById('goToLoginBtn');
 
-    skillsList?.addEventListener('click', (e) => {
-        if (e.target.classList.contains('skill-remove')) {
-            const indexToRemove = parseInt(e.target.dataset.index);
-            skills.splice(indexToRemove, 1);
-            renderSkills();
+    registerForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (validateStep2()) {
+            congratsModal.classList.remove('hidden');
         }
     });
 
-    if (registerForm) {
-        registerForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            // If on step 1 and submit is triggered (e.g. by pressing Enter in a field),
-            // behave like "Next" button.
-            if (currentStep === 1) {
-                if (validateStep1()) {
-                    currentStep = 2;
-                    updateProgress();
-                }
-                return; 
-            }
-
-            // Only proceed to API call if on step 2 and step 2 is valid
-            if (currentStep === 2 && !validateStep2()) {
-                 return;
-            }
-
-
-            if (buttonText) buttonText.style.display = 'none';
-            if (buttonLoading) buttonLoading.classList.remove('hidden');
-            if (submitBtn) submitBtn.disabled = true;
-            clearGeneralError();
-
-            // IMPORTANT: Add a 'Username' input field to your register.html (Step 2).
-            // For now, deriving a simple username. This needs to be replaced.
-            const derivedUsername = emailInput.value.trim().split('@')[0] + Math.floor(Math.random() * 1000);
-
-            const backendPayload = {
-                fullName: fullNameInput.value.trim(),
-                username: derivedUsername, // REPLACE THIS with value from your new Username input field
-                email: emailInput.value.trim(),
-                password: passwordInput.value
-                // Student ID, Department, Semester, Skills are NOT sent to the current backend User model.
-                // To include them, you'd need to:
-                // 1. Add these fields to your Mongoose User schema on the backend.
-                // 2. Update the backend /api/users/register route to accept and save them.
-                // 3. Add them to this backendPayload.
-            };
-
-            try {
-                const response = await fetch('http://localhost:3001/api/users/register', { // YOUR BACKEND REGISTER URL
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(backendPayload)
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.token) {
-                    // Registration successful, token received for auto-login
-                    localStorage.setItem('authToken', data.token);
-                    localStorage.setItem('userData', JSON.stringify(data.user));
-                    // alert('Registration successful! You are now logged in.'); // Optional alert
-                    window.location.href = 'dashboard.html'; // Redirect to dashboard
-                } else {
-                    // Show error message from backend
-                    showGeneralError(data.message || 'Registration failed. Please try again.');
-                }
-
-            } catch (error) {
-                console.error('Registration error:', error);
-                showGeneralError('Registration failed. Please check your connection and try again.');
-            } finally {
-                if (buttonText) buttonText.style.display = 'block';
-                if (buttonLoading) buttonLoading.classList.add('hidden');
-                if (submitBtn) submitBtn.disabled = false;
-            }
-        });
-    }
+    goToLoginBtn?.addEventListener('click', () => {
+        window.location.href = 'login.html';
+    });
 
     // Initial setup
     if (step1 && step2 && progressFill && progressText) {
@@ -286,3 +391,78 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSkills();
     }
 });
+
+// Email live validation
+emailInput?.addEventListener('input', () => {
+    if (!validateEmail(emailInput.value.trim())) {
+        showError(emailInput, 'Enter a valid email address.');
+    } else {
+        showSuccess(emailInput);
+    }
+});
+
+// Password live validation
+passwordInput?.addEventListener('input', () => {
+    if (!validatePassword(passwordInput.value)) {
+        showError(passwordInput, 'Password must be 8-32 chars, 1 special, 1 capital, 1 small letter.');
+    } else {
+        showSuccess(passwordInput);
+    }
+    // Also check confirm password if user is typing password
+    if (confirmPasswordInput.value) {
+        if (confirmPasswordInput.value !== passwordInput.value) {
+            showError(confirmPasswordInput, 'Passwords do not match.');
+        } else {
+            showSuccess(confirmPasswordInput);
+        }
+    }
+});
+
+// Confirm Password live validation
+confirmPasswordInput?.addEventListener('input', () => {
+    if (confirmPasswordInput.value !== passwordInput.value || confirmPasswordInput.value === '') {
+        showError(confirmPasswordInput, 'Passwords do not match.');
+    } else {
+        showSuccess(confirmPasswordInput);
+    }
+});
+
+// Skills & Interests live validation (require at least one skill)
+skillsList?.addEventListener('DOMSubtreeModified', () => {
+    if (!skillsList.textContent.trim()) {
+        showError(skillInput, 'Please add at least one skill.');
+    } else {
+        showSuccess(skillInput);
+    }
+});
+
+// Agreement to Terms live validation
+agreeTermsInput?.addEventListener('change', () => {
+    if (!agreeTermsInput.checked) {
+        showError(agreeTermsInput, 'You must agree to the terms.');
+    } else {
+        showSuccess(agreeTermsInput);
+    }
+});
+
+const skillCheckboxes = document.querySelectorAll('input[name="skills"]');
+const otherSkillInput = document.getElementById('otherSkill');
+const skillsError = document.getElementById('skillsError');
+
+function validateSkills() {
+    const checked = Array.from(skillCheckboxes).some(cb => cb.checked);
+    const other = otherSkillInput.value.trim();
+    if (!checked && !other) {
+        skillsError.textContent = 'Please select at least one skill or enter another.';
+        return false;
+    } else {
+        skillsError.textContent = '';
+        return true;
+    }
+}
+
+// Live validation
+skillCheckboxes.forEach(cb => {
+    cb.addEventListener('change', validateSkills);
+});
+otherSkillInput?.addEventListener('input', validateSkills);
