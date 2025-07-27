@@ -37,7 +37,7 @@
                     <p>Sign in to access your TeamUp DIU account</p>
                 </div>
 
-                <form class="login-form" id="loginForm" novalidate>
+                <form class="login-form" id="loginForm" action="../PHP/login.php" method="POST" >
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email" class="form-label">Email Address</label>
@@ -70,13 +70,10 @@
                         <a href="#" class="forgot-link">Forgot your password?</a>
                     </div>
 
-                    <button type="submit" class="signin-button" id="submitBtn">
-                        <span class="button-text">Sign In</span>
-                        <div class="button-loading hidden">
-                            <div class="loading-spinner"></div>
-                            <span>Signing you in...</span>
-                        </div>
-                    </button>
+
+
+                    <input type="submit" class="signin-button" id="submitBtn" value="Sign In">
+
                 </form>
 
                 <div class="divider-section">

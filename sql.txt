@@ -1,6 +1,6 @@
 -- Create the TeamUp database
 
-CREATE DATABASE TeamUp;
+CREATE DATABASE teamup;
 
 -- Create login_info table
 CREATE TABLE login_info (
@@ -21,6 +21,7 @@ CREATE TABLE  registration_info (
     student_id VARCHAR(30) NOT NULL,
     department VARCHAR(50) NOT NULL,
     semester VARCHAR(20) NOT NULL,
+    password VARCHAR(30) NOT NULL,
     skills TEXT,
     other_skill VARCHAR(100),
     phone VARCHAR(20),

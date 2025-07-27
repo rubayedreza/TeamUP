@@ -372,12 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const congratsModal = document.getElementById('congratsModal');
     const goToLoginBtn = document.getElementById('goToLoginBtn');
 
-    registerForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validateStep2()) {
-            congratsModal.classList.remove('hidden');
-        }
-    });
+    
 
     goToLoginBtn?.addEventListener('click', () => {
         window.location.href = 'login.html';

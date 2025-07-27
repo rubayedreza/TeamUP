@@ -42,7 +42,7 @@
                     <p class="progress-text" id="progressText">Step 1 of 2: Personal Information</p>
                 </div>
 
-                <form class="register-form" id="registerForm" novalidate>
+                <form class="register-form" id="registerForm" action="../PHP/register.php" method="POST">
                     <div class="form-step active" id="step1">
                         <div class="form-row">
                             <div class="form-group">
@@ -181,10 +181,7 @@
                         </div>
                         <div class="form-buttons">
                             <button type="button" class="step-button secondary" id="prevBtn">Previous</button>
-                            <button type="submit" class="submit-button" id="submitBtn">
-                                <span class="button-text">Create Account</span>
-                                <span class="button-loading hidden"><span class="loading-spinner"></span></span>
-                            </button>
+                            <input type="submit" class="submit-button" id="submitBtn" value="Create Account">
                         </div>
                     </div>
                 </form>
@@ -196,13 +193,6 @@
         </div>
     </main>
 
-    <div id="congratsModal" class="hidden">
-        <div class="modal-content">
-            <h2>Congratulations!</h2>
-            <p>Your account has been created successfully.</p>
-            <button id="goToLoginBtn" class="submit-button">Go to Sign In</button>
-        </div>
-    </div>
 
     <footer class="footer">
         <div class="footer-content">
@@ -217,7 +207,7 @@
         </div>
     </footer>
 
-    <script src="../JS/register.js"></script>
+    <script src="/../JS/register.js"></script>
 
 </body>
 </html>
