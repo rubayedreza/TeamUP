@@ -1,6 +1,7 @@
 -- Create the TeamUp database
 
 CREATE DATABASE teamup;
+USE teamup;
 
 -- Create login_info table
 CREATE TABLE login_info (
@@ -10,22 +11,19 @@ CREATE TABLE login_info (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create registration_info table
-
-CREATE TABLE  registration_info (
+-- Create register_info table
+CREATE TABLE register_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     university VARCHAR(100) NOT NULL,
-    student_id VARCHAR(30) NOT NULL,
+    student_id VARCHAR(15) NOT NULL UNIQUE,
     department VARCHAR(50) NOT NULL,
-    semester VARCHAR(20) NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    semester VARCHAR(10) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
     skills TEXT,
-    other_skill VARCHAR(100),
-    phone VARCHAR(20),
-    address VARCHAR(255),
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES login_info(id)
+    other_skills VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id) REFERENCES login_info(id)
 );

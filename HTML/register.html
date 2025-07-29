@@ -133,39 +133,49 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group password-wrapper">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" name="password" class="form-input" placeholder="Create a password" required>
-                                <span class="error-message" id="passwordError"></span>
+                        <div class="form-group password-wrapper">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="password-container">
+                            <input type="password" id="password" name="password" class="form-input" placeholder="Create a password" required>
+                            <span id="togglePassword" class="password-toggle">
+                                👁
+                            </span>
                             </div>
+                            <span class="error-message" id="passwordError"></span>
+                        </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Confirm your password" required>
-                                <span class="error-message" id="confirmPasswordError"></span>
+                        <div class="form-group password-wrapper">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <div class="password-container">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Confirm your password" required>
+                            <span id="toggleConfirmPassword" class="password-toggle">
+                                👁
+                            </span>
                             </div>
+                            <span class="error-message" id="confirmPasswordError"></span>
+                        </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group skills-container">
                                 <label class="form-label">Skills & Interests</label>
                                 <div class="skills-checkbox-grid">
-                                    <label><input type="checkbox" name="skills" value="C"> C</label>
-                                    <label><input type="checkbox" name="skills" value="C++"> C++</label>
-                                    <label><input type="checkbox" name="skills" value="Java"> Java</label>
-                                    <label><input type="checkbox" name="skills" value="Python"> Python</label>
-                                    <label><input type="checkbox" name="skills" value="HTML"> HTML</label>
-                                    <label><input type="checkbox" name="skills" value="CSS"> CSS</label>
-                                    <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
-                                    <label><input type="checkbox" name="skills" value="SQL"> SQL</label>
-                                    <label><input type="checkbox" name="skills" value="PHP"> PHP</label>
-                                    <label><input type="checkbox" name="skills" value="Competitive Programming"> Competitive Programming</label>
-                                    <label><input type="checkbox" name="skills" value="Web Development"> Web Development</label>
-                                    <label><input type="checkbox" name="skills" value="App Development"> App Development</label>
+                                    <label><input type="checkbox" name="skills[]" value="C"> C</label>
+                                    <label><input type="checkbox" name="skills[]" value="C++"> C++</label>
+                                    <label><input type="checkbox" name="skills[]" value="Java"> Java</label>
+                                    <label><input type="checkbox" name="skills[]" value="Python"> Python</label>
+                                    <label><input type="checkbox" name="skills[]" value="HTML"> HTML</label>
+                                    <label><input type="checkbox" name="skills[]" value="CSS"> CSS</label>
+                                    <label><input type="checkbox" name="skills[]" value="JavaScript"> JavaScript</label>
+                                    <label><input type="checkbox" name="skills[]" value="SQL"> SQL</label>
+                                    <label><input type="checkbox" name="skills[]" value="PHP"> PHP</label>
+                                    <label><input type="checkbox" name="skills[]" value="Competitive Programming"> Competitive Programming</label>
+                                    <label><input type="checkbox" name="skills[]" value="Web Development"> Web Development</label>
+                                    <label><input type="checkbox" name="skills[]" value="App Development"> App Development</label>
                                 </div>
                                 <div class="other-skill-input">
                                     <label for="otherSkill">Other:</label>
-                                    <input type="text" id="otherSkill" name="otherSkill" class="form-input" placeholder="Add other skill">
+                                    <input type="text" id="otherSkill" name="otherSkills" class="form-input" placeholder="Add other skill">
                                 </div>
                                 <span class="error-message" id="skillsError"></span>
                             </div>
@@ -207,7 +217,7 @@
         </div>
     </footer>
 
-    <script src="/../JS/register.js"></script>
+    <script src="../JS/register.js"></script>
 
 </body>
 </html>
