@@ -1,15 +1,9 @@
+DROP DATABASE teamup;
+
 -- Create the TeamUp database
 
 CREATE DATABASE teamup;
 USE teamup;
-
--- Create login_info table
-CREATE TABLE login_info (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 -- Create register_info table
 CREATE TABLE register_info (
@@ -24,6 +18,25 @@ CREATE TABLE register_info (
     password VARCHAR(255) NOT NULL,
     skills TEXT,
     other_skills VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id) REFERENCES login_info(id)
+    active_projects INT DEFAULT 0,
+    team_requests INT DEFAULT 0,
+    rating INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    
 );
+
+-- Create login_info table
+CREATE TABLE login_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id) REFERENCES register_info(id)
+);
+
+INSERT INTO register_info 
+(first_name, last_name, university, student_id, department, semester, email, password, skills, other_skills)
+VALUES
+('Pritom', 'Saha', 'Daffodil International University', '221-15-4869', 'Computer Science & Engineering', '7th', 'pritomsahawww@gmail.com', 'p', 'C, Java, SQL', 'IoT'),
+('Rubayed', 'Reza', 'Daffodil International University', '221-15-4870', 'Computer Science & Engineering', '7th', 'rubayed@gmail.com', 'r', 'Python, PHP', 'Flutter'),
+('Ritu', 'Akter', 'Daffodil International University', '221-15-4871', 'Computer Science & Engineering', '7th', 'ritu@gmail.com', 'r', 'HTML, CSS, JS', 'React');

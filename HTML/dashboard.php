@@ -1,3 +1,21 @@
+<?php
+    include '../PHP/connection.php';
+    session_start();
+    $uid = $_SESSION['uid'];
+    if (!isset($uid)) {
+        header("Location: ../HTML/login.html");
+        exit();
+    }
+
+    $sql="SELECT * FROM register_info WHERE id='$uid'";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) == 0) {
+        header("Location: ../HTML/register.html");
+        exit();
+    }
+    $user = mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,11 +39,11 @@
             </div>
             <div class="nav-user">
                 <div class="user-avatar">
-                    <span class="avatar-initials">JD</span>
+                    <span class="avatar-initials"><?php echo $user['first_name'][0] . $user['last_name'][0]; ?></span>
                 </div>
                 <div class="user-info">
-                    <span class="user-name">John Doe</span>
-                    <span class="user-department">Computer Science & Engineering</span>
+                    <span class="user-name"><?php echo $user['first_name'] . ' ' . $user['last_name']; ?></span>
+                    <span class="user-department"><?php echo $user['department']; ?></span>
                 </div>
                 <button class="profile-dropdown" id="profileDropdown">
                     <span class="dropdown-icon">▼</span>
@@ -51,12 +69,12 @@
                 <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;">
             </div>
             <div class="profile-info">
-                <h2 class="profile-name">John Doe</h2>
-                <p class="profile-department">Computer Science & Engineering</p>
-                <p class="profile-email">john.doe@email.com</p>
-                <p class="profile-semester">8th Semester</p>
-                <p class="profile-id">Student ID: 12345678</p>
-                <button class="btn btn-danger logout-btn" id="logoutBtn">Logout</button>
+                <h2 class="profile-name"><?php echo $user['first_name'] . ' ' . $user['last_name']; ?></h2>
+                <p class="profile-department"><?php echo $user['department']; ?></p>
+                <p class="profile-email"><?php echo $user['email']; ?></p>
+                <p class="profile-semester"><?php echo $user['semester']; ?> Semester</p>
+                <p class="profile-id">Student ID: <?php echo $user['student_id']; ?></p>
+                <button class="btn btn-danger logout-btn" onclick="<?php echo 'window.location.href=\'../PHP/logout.php\''; ?>" id="logoutBtn">Logout</button>
             </div>
         </div>
     </section>
@@ -67,28 +85,28 @@
             <!-- Welcome Section -->
             <section class="welcome-section">
                 <div class="welcome-content">
-                    <h1 class="welcome-title">Welcome back, John!</h1>
+                    <h1 class="welcome-title">Welcome back, <?php echo $user['first_name']; ?>!</h1>
                     <p class="welcome-subtitle">Ready to find your next teammate or project?</p>
                 </div>
                 <div class="stats-cards">
                     <div class="stat-card">
                         <div class="stat-icon">👥</div>
                         <div class="stat-info">
-                            <span class="stat-number">12</span>
+                            <span class="stat-number"><?php echo $user['active_projects']; ?></span>
                             <span class="stat-label">Active Projects</span>
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">🤝</div>
                         <div class="stat-info">
-                            <span class="stat-number">8</span>
+                            <span class="stat-number"><?php echo $user['team_requests']; ?></span>
                             <span class="stat-label">Team Requests</span>
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">⭐</div>
                         <div class="stat-info">
-                            <span class="stat-number">4.8</span>
+                            <span class="stat-number"><?php echo $user['rating']; ?></span>
                             <span class="stat-label">Rating</span>
                         </div>
                     </div>
