@@ -13,7 +13,7 @@
     $skills = implode(", ", $skillsArray);
     $other_skills = $_POST['otherSkills'] ?? "";
 
-    // Securely hash the password ---
+    // CORRECTION 1: Securely hash the password ---
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Use prepared statements to prevent SQL injection ---
@@ -28,7 +28,7 @@
     if (mysqli_stmt_execute($stmt)) {
         // Redirect to login page on successful registration
         header("Location: ../HTML/login.html");
-        exit(); // CORRECTION 3: Always exit after a redirect ---
+        exit(); // Always exit after a redirect ---
     } else {
         echo "Error: " . mysqli_error($con);
     }
