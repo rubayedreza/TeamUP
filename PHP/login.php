@@ -1,5 +1,5 @@
 <?php
-    session_start(); // Start the session at the top
+    session_start();
     include 'connection.php';
 
     $email = $_POST['email'];
@@ -25,14 +25,14 @@
             exit();
 
         } else {
-            // Invalid password
-            // NOTE: You should add a way to display this error on your login.html page
-            echo "Invalid password.";
+            // Invalid password, redirect back with an error code
+            header("Location: ../HTML/login.html?error=invalidpassword");
+            exit();
         }
     } else {
-        // User does not exist
-        // NOTE: You should add a way to display this error on your login.html page
-        echo "User does not exist. Please register first.";
+        // User does not exist, redirect back with an error code
+        header("Location: ../HTML/login.html?error=nouser");
+        exit();
     }
 
     mysqli_stmt_close($check_user_query);

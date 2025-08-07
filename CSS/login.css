@@ -243,6 +243,13 @@
             cursor: pointer;
         }
 
+        .error-text {
+            color: #D93025;
+            text-align: center;
+            display: block;
+            margin-bottom: 15px;
+        }
+
         .forgot-link {
             color: #6366f1;
             text-decoration: none;

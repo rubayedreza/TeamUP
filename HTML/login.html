@@ -70,7 +70,8 @@
                         <a href="#" class="forgot-link">Forgot your password?</a>
                     </div>
 
-
+                    <!-- This is the placeholder for the error message -->
+                    <span id="loginError" class="error-text"></span>
 
                     <input type="submit" class="signin-button" id="submitBtn" value="Sign In">
 
@@ -120,6 +121,20 @@
             </div>
         </div>
     </footer>
-    <script src="../JS/login.js"></script>
+    
+    <!-- This script checks for an error and displays it -->
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const errorMessageElement = document.getElementById('loginError');
+
+            if (error === 'nouser') {
+                errorMessageElement.textContent = 'User does not exist. Please register first.';
+            } else if (error === 'invalidpassword') {
+                errorMessageElement.textContent = 'Incorrect password. Please try again.';
+            }
+        };
+    </script>
 </body>
 </html>
