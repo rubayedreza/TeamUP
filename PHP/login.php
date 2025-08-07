@@ -1,44 +1,40 @@
 <?php
-    
+    session_start(); // Start the session at the top
     include 'connection.php';
 
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Use prepared statements to prevent SQL injection
+    $query = "SELECT id, password FROM register_info WHERE email = ?";
     
-        $useremail = $_POST['email'];
-        $userpassword = $_POST['password'];
+    $check_user_query = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($check_user_query, "s", $email);
+    mysqli_stmt_execute($check_user_query);
+    $query_result = mysqli_stmt_get_result($check_user_query);
 
-        // Check if the user already exists
-        $checkUserSql = "SELECT id,password FROM register_info WHERE email='$useremail'";
-        $checkUserResult = mysqli_query($con, $checkUserSql);
+    if (mysqli_num_rows($query_result) > 0) {
+        $user_data = mysqli_fetch_assoc($query_result);
+        $db_password_hash = $user_data['password'];
 
-        if (mysqli_num_rows($checkUserResult) > 0) {
-            // User exists, verify password
-            $user = mysqli_fetch_assoc($checkUserResult);
-
-            if ($userpassword === $user['password']) {
-                $sql = "INSERT INTO login_info (email, password) VALUES ('$useremail', '$userpassword')";
-                $result = mysqli_query($con, $sql);
-
-                session_start();
-                $_SESSION['uid'] = $user['id'];
-
-
-                header("Location: ../HTML/dashboard.php");
-                exit();
-            } else {
-                header("Location: ../HTML/login.html");
-                //show alert
-                echo "<script>alert('Invalid password');</script>";
-                echo "Invalid password.";
-                exit();
-            }
-        } else {
-            // User does not exist, redirect to registration page
-            header("Location: ../HTML/register.html");
-            //show alert
-            echo "<script>alert('User does not exist. Please register first.');</script>";
-            echo "User does not exist.";
+        // Verify the hashed password
+        if (password_verify($password, $db_password_hash)) {
+            // Password is correct, set session and redirect
+            $_SESSION['uid'] = $user_data['id'];
+            header("Location: ../HTML/dashboard.php");
             exit();
+
+        } else {
+            // Invalid password
+            // NOTE: You should add a way to display this error on your login.html page
+            echo "Invalid password.";
         }
+    } else {
+        // User does not exist
+        // NOTE: You should add a way to display this error on your login.html page
+        echo "User does not exist. Please register first.";
+    }
 
-
+    mysqli_stmt_close($check_user_query);
+    mysqli_close($con);
 ?>
