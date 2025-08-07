@@ -11,15 +11,28 @@
     $password = $_POST['password'];
     $skillsArray = isset($_POST['skills']) ? (array) $_POST['skills'] : [];
     $skills = implode(", ", $skillsArray);
-    // Ensure 'otherSkills' is set and not empty
     $other_skills = $_POST['otherSkills'] ?? "";
 
-    $sql = "INSERT INTO register_info (first_name, last_name, university, student_id, department, semester, email, password, skills, other_skills) VALUES ('$first_name', '$last_name', '$university', '$student_id', '$department', '$semester', '$email', '$password', '$skills', '$other_skills')";
-    $result = mysqli_query($con, $sql);
-    if ($result) {
-        echo "Registration successful";
+    // Securely hash the password ---
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Use prepared statements to prevent SQL injection ---
+    $sql = "INSERT INTO register_info (first_name, last_name, university, student_id, department, semester, email, password, skills, other_skills) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = mysqli_prepare($con, $sql);
+
+    // Bind the user data to the statement
+    mysqli_stmt_bind_param($stmt, "ssssssssss", $first_name, $last_name, $university, $student_id, $department, $semester, $email, $hashed_password, $skills, $other_skills);
+
+    // Execute the statement
+    if (mysqli_stmt_execute($stmt)) {
+        // Redirect to login page on successful registration
         header("Location: ../HTML/login.html");
+        exit(); // CORRECTION 3: Always exit after a redirect ---
     } else {
         echo "Error: " . mysqli_error($con);
     }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($con);
 ?>
