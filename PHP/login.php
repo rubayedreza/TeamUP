@@ -19,18 +19,27 @@
 
         // Verify the hashed password
         if (password_verify($password, $db_password_hash)) {
-            // Password is correct, set session and redirect
+            // Password is correct, set the server-side session.
             $_SESSION['uid'] = $user_data['id'];
-            header("Location: ../HTML/dashboard.php");
-            exit();
+
+            // === MODIFIED PART ===
+            // Instead of a PHP header redirect, we echo JavaScript to the browser.
+            // This allows us to set the sessionStorage item before changing the page.
+            echo "<script>
+                    // Set the flag in sessionStorage to remember the login for this browser tab.
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    // Now, redirect the user to the dashboard.
+                    window.location.href = '../HTML/dashboard.php';
+                  </script>";
+            exit(); // Stop the script from running further.
 
         } else {
-            // Invalid password, redirect back with an error code
+            // Invalid password, redirect back with an error code.
             header("Location: ../HTML/login.html?error=invalidpassword");
             exit();
         }
     } else {
-        // User does not exist, redirect back with an error code
+        // User does not exist, redirect back with an error code.
         header("Location: ../HTML/login.html?error=nouser");
         exit();
     }

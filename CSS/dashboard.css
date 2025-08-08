@@ -984,3 +984,79 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
+
+/* Styles for Browse Projects Section */
+.browse-projects {
+    background: rgba(30, 30, 45, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    margin-bottom: 3rem;
+}
+
+.post-card {
+    background: rgba(55, 65, 81, 0.5);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+.post-card:last-child {
+    margin-bottom: 0;
+}
+.post-card:hover {
+    border-color: #6366f1;
+    transform: translateY(-1px);
+}
+
+.post-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.post-author {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.post-description {
+    margin-bottom: 1rem;
+    color: #d1d5db;
+    font-size: 14px;
+}
+
+.post-skills .skill-tag {
+    display: inline-block;
+    background-color: rgba(99, 102, 241, 0.2);
+    color: #c7d2fe;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(75, 85, 99, 0.3);
+    padding-top: 1rem;
+}
+
+.team-size {
+    font-size: 14px;
+    font-weight: 500
+}  

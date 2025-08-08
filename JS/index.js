@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // --- Your existing code ---
     document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -151,5 +152,43 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
+    }
+    
+    // --- End of your existing code ---
+
+
+    // === UPDATED CODE FOR LOGIN AND DASHBOARD (USING sessionStorage) ===
+
+    // Check sessionStorage to see if user is logged in for this session
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const loginBtn = document.getElementById('loginBtn');
+    const dashboardLink = document.getElementById('dashboardLink');
+
+    if (isLoggedIn === 'true') {
+        // If the user IS logged in, change "Sign In" to "Logout"
+        if (loginBtn) {
+            loginBtn.textContent = 'Logout';
+            loginBtn.href = '#'; // Prevent it from going to login.html
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Remove the login flag from the session and reload the page
+                sessionStorage.removeItem('isLoggedIn');
+                window.location.reload();
+            });
+        }
+    }
+
+    // Add the check for the dashboard link
+    if (dashboardLink) {
+        dashboardLink.addEventListener('click', function(event) {
+            // Re-check the session login status when the link is clicked
+            const isLoggedInOnClick = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedInOnClick !== 'true') {
+                // Stop the link from working if not logged in
+                event.preventDefault(); 
+                alert('Please sign in to access the dashboard.');
+            }
+            // If logged in, the link will work normally.
+        });
     }
 });

@@ -1,16 +1,64 @@
+<?php
+    session_start();
+    include '../PHP/connection.php';
+
+    // Ensure the user is logged in before they can see the page
+    if (!isset($_SESSION['uid'])) {
+        header("Location: ../HTML/login.html");
+        exit();
+    }
+
+    // Check if the form was submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $user_id = $_SESSION['uid'];
+
+        $project_title = $_POST['project_title'];
+        $project_description = $_POST['project_description'];
+        $team_size = $_POST['team_size'];
+        $contact_email = $_POST['contact_email'];
+
+        $skills_array = isset($_POST['skills']) ? (array) $_POST['skills'] : [];
+        $other_skills = isset($_POST['other_skills']) && !empty($_POST['other_skills']) ? $_POST['other_skills'] : '';
+
+        $all_skills = $skills_array;
+        if (!empty($other_skills)) {
+            $other_skills_array = array_map('trim', explode(',', $other_skills));
+            $all_skills = array_merge($all_skills, $other_skills_array);
+        }
+        
+        $required_skills_string = implode(", ", $all_skills);
+
+        $sql = "INSERT INTO posts (user_id, project_title, project_description, required_skills, team_size, contact_email) VALUES (?, ?, ?, ?, ?, ?)";
+        
+        $stmt = mysqli_prepare($con, $sql);
+        mysqli_stmt_bind_param($stmt, "isssis", $user_id, $project_title, $project_description, $required_skills_string, $team_size, $contact_email);
+
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: dashboard.php?post_success=true");
+            exit();
+        } else {
+            echo "Error: " . mysqli_error($con);
+        }
+
+        mysqli_stmt_close($stmt);
+        mysqli_close($con);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Post - TeamUp DIU</title>
-    <link rel="stylesheet" href="../CSS/dashboard.css"> <!-- Reusing dashboard styles for consistency -->
+    <link rel="stylesheet" href="../CSS/login.css"> <!-- Use login.css for the correct header style -->
     <link rel="stylesheet" href="../CSS/create_post.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Corrected Navigation Header to match homepage style -->
     <header class="header">
         <nav class="nav-container">
             <div class="nav-brand">
@@ -33,7 +81,7 @@
                 <p>Let others know what you're looking for in a teammate.</p>
             </div>
 
-            <form class="post-form" action="../PHP/submit_post.php" method="POST">
+            <form class="post-form" action="create_post.php" method="POST">
                 <div class="form-group">
                     <label for="project_title" class="form-label">Project Title</label>
                     <input type="text" id="project_title" name="project_title" class="form-input" placeholder="e.g., E-commerce Website" required>
