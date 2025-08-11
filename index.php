@@ -1,3 +1,28 @@
+<?php
+    session_start(); // Start the session to check for a logged-in user
+    include 'PHP/connection.php';
+
+    $liked_posts = [];
+    if (isset($_SESSION['uid'])) {
+        $user_id = $_SESSION['uid'];
+        $liked_sql = "SELECT post_id FROM interests WHERE user_id = ?";
+        $stmt = mysqli_prepare($con, $liked_sql);
+        mysqli_stmt_bind_param($stmt, "i", $user_id);
+        mysqli_stmt_execute($stmt);
+        $liked_result = mysqli_stmt_get_result($stmt);
+        while ($row = mysqli_fetch_assoc($liked_result)) {
+            $liked_posts[] = $row['post_id'];
+        }
+    }
+
+    // Fetch the 6 most recent posts from the database
+    $posts_sql = "SELECT posts.*, register_info.first_name, register_info.last_name, register_info.department 
+                  FROM posts 
+                  JOIN register_info ON posts.user_id = register_info.id 
+                  ORDER BY posts.created_at DESC
+                  LIMIT 6";
+    $posts_result = mysqli_query($con, $posts_sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +39,7 @@
     <header class="header">
         <nav class="nav-container">
             <div class="nav-brand">
-                <a href="index.html" class="brand-logo">
+                <a href="index.php" class="brand-logo">
                     <img src="img/TeamUp.png" alt="TeamUp DIU Logo" class="logo-icon">
                     <span class="logo-text">TeamUp DIU</span>
                 </a>
@@ -23,7 +48,6 @@
                 <a href="#about" class="nav-link">About</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#contact" class="nav-link">Contact</a>
-                <!-- === MODIFIED: Corrected the folder path to HTML === -->
                 <a href="HTML/dashboard.php" class="nav-link" id="dashboardLink">Dashboard</a>
                 <a href="HTML/login.html" class="nav-cta" id="loginBtn">Sign In</a>
             </div>
@@ -159,84 +183,55 @@
                 </select>
             </div>
             <div class="projects-grid" id="cardContainer">
-                <div class="project-card fade-in-up" data-skills="javascript react node.js">
-                    <div class="card-header">
-                        <div class="user-info">
-                            <div class="user-avatar">
-                                <span>JD</span>
-                                <div class="status-indicator status-online"></div>
+                
+                <?php if ($posts_result && mysqli_num_rows($posts_result) > 0): ?>
+                    <?php while($post = mysqli_fetch_assoc($posts_result)): ?>
+                        <div class="project-card fade-in-up">
+                            <div class="card-header">
+                                <div class="user-info">
+                                    <div class="user-avatar">
+                                        <span><?php echo htmlspecialchars(strtoupper($post['first_name'][0] . $post['last_name'][0])); ?></span>
+                                        <div class="status-indicator status-online"></div>
+                                    </div>
+                                    <div class="user-details">
+                                        <h3><?php echo htmlspecialchars($post['first_name'] . ' ' . $post['last_name']); ?></h3>
+                                        <span class="department"><?php echo htmlspecialchars($post['department']); ?></span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="user-details">
-                                <h3>John Doe</h3>
-                                <span class="department">CSE</span>
+                            <div class="card-content">
+                                <h4 class="project-title"><?php echo htmlspecialchars($post['project_title']); ?></h4>
+                                <p class="project-description"><?php echo htmlspecialchars($post['project_description']); ?></p>
+                                <div class="skills-tags">
+                                    <?php 
+                                        $skills = explode(',', $post['required_skills']);
+                                        foreach ($skills as $skill) {
+                                            if (!empty(trim($skill))) {
+                                                echo '<span class="skill-tag">' . htmlspecialchars(trim($skill)) . '</span>';
+                                            }
+                                        }
+                                    ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="project-urgency urgent">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12,6 12,12 16,14"/>
-                            </svg>
-                            2 weeks
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="project-title">E-commerce Web Platform</h4>
-                        <p class="project-description">Building a full-stack e-commerce platform with modern React frontend and Node.js backend. Looking for passionate developers to join the team.</p>
-                        <div class="skills-tags">
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">Node.js</span>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="btn btn-primary btn-show-interest" data-owner="John Doe">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                            </svg>
-                            Show Interest
-                        </button>
-                        <button class="btn btn-secondary btn-view-profile" data-profile="john-doe">View Profile</button>
-                    </div>
-                </div>
-                <div class="project-card fade-in-up" data-skills="python ml nlp">
-                    <div class="card-header">
-                        <div class="user-info">
-                            <div class="user-avatar">
-                                <span>JS</span>
-                                <div class="status-indicator status-busy"></div>
-                            </div>
-                            <div class="user-details">
-                                <h3>Jane Smith</h3>
-                                <span class="department">CSE</span>
+                            <div class="card-actions">
+                                <?php
+                                    // Check if the current post ID is in our array of liked posts
+                                    $is_liked_class = in_array($post['id'], $liked_posts) ? 'liked' : '';
+                                ?>
+                                <button class="btn btn-primary btn-show-interest <?php echo $is_liked_class; ?>" data-post-id="<?php echo htmlspecialchars($post['id']); ?>" data-owner="<?php echo htmlspecialchars($post['first_name'] . ' ' . $post['last_name']); ?>">
+                                    <svg class="heart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                    <span>Show Interest</span>
+                                </button>
+                                <button class="btn btn-secondary btn-view-profile" data-profile-id="<?php echo htmlspecialchars($post['user_id']); ?>">View Profile</button>
                             </div>
                         </div>
-                        <div class="project-urgency normal">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12,6 12,12 16,14"/>
-                            </svg>
-                            1 month
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="project-title">AI-Powered Student Assistant</h4>
-                        <p class="project-description">Developing an intelligent chatbot to help DIU students with academic queries, course information, and campus navigation using NLP.</p>
-                        <div class="skills-tags">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Machine Learning</span>
-                            <span class="skill-tag">NLP</span>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <button class="btn btn-primary btn-show-interest" data-owner="Jane Smith">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                            </svg>
-                            Show Interest
-                        </button>
-                        <button class="btn btn-secondary btn-view-profile" data-profile="jane-smith">View Profile</button>
-                    </div>
-                </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No projects have been posted yet. Be the first to create one!</p>
+                <?php endif; ?>
+
             </div>
         </div>
     </section>
@@ -312,7 +307,7 @@
         <div class="container">
             <div class="footer-main">
                 <div class="footer-brand">
-                    <a href="/index.html" class="nav-brand">
+                    <a href="index.php" class="nav-brand">
                         <img src="img/TeamUp.png" alt="TeamUp DIU Logo" class="logo-icon">
                         <span class="logo-text">TeamUp DIU</span>
                     </a>

@@ -8,7 +8,7 @@
     }
     $uid = $_SESSION['uid'];
 
-    // Use prepared statements to prevent SQL injection
+    // Fetch user data
     $user_sql = "SELECT * FROM register_info WHERE id = ?";
     $stmt = mysqli_prepare($con, $user_sql);
     mysqli_stmt_bind_param($stmt, "i", $uid);
@@ -21,12 +21,7 @@
     }
     $user = mysqli_fetch_assoc($user_result);
 
-    // Fetch all posts from the database, joining with user info
-    $posts_sql = "SELECT posts.*, register_info.first_name, register_info.last_name 
-                  FROM posts 
-                  JOIN register_info ON posts.user_id = register_info.id 
-                  ORDER BY posts.created_at DESC";
-    $posts_result = mysqli_query($con, $posts_sql);
+    // The query for interested posts has been moved to my_interests.php
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +40,7 @@
     <nav class="dashboard-nav">
         <div class="nav-container">
             <div class="nav-brand">
-                <a href="../index.html" class="brand-logo">
+                <a href="../index.php" class="brand-logo">
                     <img src="../img/TeamUp.png" alt="TeamUp DIU Logo" class="logo-icon">
                     <span class="logo-text">TeamUp DIU</span>
                 </a>
@@ -136,58 +131,24 @@
                         <div class="btn-arrow">→</div>
                     </button>
                     
-                    <button class="action-btn secondary" id="viewPostsBtn">
-                        <div class="btn-icon">📋</div>
+                    <button class="action-btn secondary" onclick="window.location.href='my_interests.php'">
+                        <div class="btn-icon">❤️</div>
                         <div class="btn-content">
-                            <span class="btn-title">My Posts</span>
-                            <span class="btn-subtitle">Manage your project listings</span>
+                            <span class="btn-title">My Interests</span>
+                            <span class="btn-subtitle">View posts you're interested in</span>
                         </div>
                         <div class="btn-arrow">→</div>
                     </button>
                     
-                    <button class="action-btn tertiary" id="browseTeammatesBtn">
+                    <button class="action-btn tertiary" onclick="window.location.href='../index.php#featured'">
                         <div class="btn-icon">🔍</div>
                         <div class="btn-content">
-                            <span class="btn-title">Browse Teammates</span>
-                            <span class="btn-subtitle">Discover potential collaborators</span>
+                            <span class="btn-title">Browse All Projects</span>
+                            <span class="btn-subtitle">Discover new opportunities</span>
                         </div>
                         <div class="btn-arrow">→</div>
                     </button>
                 </div>
-            </section>
-
-            <!-- Browse Projects Section -->
-            <section class="browse-projects">
-                <h2 class="section-title">Browse Projects</h2>
-                
-                <?php if (mysqli_num_rows($posts_result) > 0): ?>
-                    <?php while($post = mysqli_fetch_assoc($posts_result)): ?>
-                        <div class="post-card">
-                            <div class="post-card-header">
-                                <h3 class="post-title"><?php echo htmlspecialchars($post['project_title']); ?></h3>
-                                <span class="post-author">by <?php echo htmlspecialchars($post['first_name'] . ' ' . $post['last_name']); ?></span>
-                            </div>
-                            <p class="post-description"><?php echo nl2br(htmlspecialchars($post['project_description'])); ?></p>
-                            <div class="post-skills">
-                                <?php 
-                                    $skills = explode(',', $post['required_skills']);
-                                    foreach ($skills as $skill) {
-                                        if (!empty(trim($skill))) {
-                                            echo '<span class="skill-tag">' . htmlspecialchars(trim($skill)) . '</span>';
-                                        }
-                                    }
-                                ?>
-                            </div>
-                            <div class="post-footer">
-                                <span class="team-size">Looking for <strong><?php echo htmlspecialchars($post['team_size']); ?></strong> teammate(s)</span>
-                                <a href="mailto:<?php echo htmlspecialchars($post['contact_email']); ?>" class="btn btn-sm btn-primary">Contact</a>
-                            </div>
-                        </div>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <p>No projects have been posted yet. Be the first to create one!</p>
-                <?php endif; ?>
-
             </section>
 
             <!-- Recent Activity & Requests -->

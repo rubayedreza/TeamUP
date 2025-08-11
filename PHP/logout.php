@@ -2,6 +2,10 @@
     session_start();
     session_unset();
     session_destroy();
-    header("Location: ../index.html");
+
+    echo "<script>
+            sessionStorage.removeItem('isLoggedIn');
+            window.location.href = '../index.php';
+          </script>";
     exit();
 ?>

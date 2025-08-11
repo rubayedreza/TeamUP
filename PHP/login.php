@@ -19,11 +19,8 @@
 
         // Verify the hashed password
         if (password_verify($password, $db_password_hash)) {
-            // Password is correct, set the server-side session.
             $_SESSION['uid'] = $user_data['id'];
 
-            // === MODIFIED PART ===
-            // Instead of a PHP header redirect, we echo JavaScript to the browser.
             // This allows us to set the sessionStorage item before changing the page.
             echo "<script>
                     // Set the flag in sessionStorage to remember the login for this browser tab.

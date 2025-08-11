@@ -4,7 +4,6 @@
     $password = "";
     $db = "teamup";
 
-    // Create connection
     $con = mysqli_connect($host, $user, $password, $db);
 
 ?>

@@ -13,7 +13,6 @@
     $skills = implode(", ", $skillsArray);
     $other_skills = $_POST['otherSkills'] ?? "";
 
-    // CORRECTION 1: Securely hash the password ---
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Use prepared statements to prevent SQL injection ---
