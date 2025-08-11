@@ -34,7 +34,8 @@ CREATE TABLE login_info (
     FOREIGN KEY (id) REFERENCES register_info(id)
 );
 
--- CREATE TABLE posts (
+-- 
+CREATE TABLE posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     project_title VARCHAR(255) NOT NULL,
@@ -46,15 +47,8 @@ CREATE TABLE login_info (
     FOREIGN KEY (user_id) REFERENCES register_info(id)
 );
 
-INSERT INTO register_info 
-(first_name, last_name, university, student_id, department, semester, email, password, skills, other_skills)
-VALUES
-('Pritom', 'Saha', 'Daffodil International University', '221-15-4869', 'Computer Science & Engineering', '7th', 'pritomsahawww@gmail.com', 'p', 'C, Java, SQL', 'IoT'),
-('Rubayed', 'Reza', 'Daffodil International University', '221-15-4870', 'Computer Science & Engineering', '7th', 'rubayed@gmail.com', 'r', 'Python, PHP', 'Flutter'),
-('Ritu', 'Akter', 'Daffodil International University', '221-15-4871', 'Computer Science & Engineering', '7th', 'ritu@gmail.com', 'r', 'HTML, CSS, JS', 'React');
-
-
--- CREATE TABLE interests (
+-- 
+CREATE TABLE interests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     post_id INT NOT NULL,
@@ -62,4 +56,13 @@ VALUES
     FOREIGN KEY (user_id) REFERENCES register_info(id) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
     UNIQUE KEY unique_interest (user_id, post_id)
+);
+
+CREATE TABLE chat_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    uid INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (uid) REFERENCES register_info(id)
 );

@@ -21,7 +21,40 @@
     }
     $user = mysqli_fetch_assoc($user_result);
 
-    // The query for interested posts has been moved to my_interests.php
+    $chat_sql = "SELECT * FROM chat_messages ORDER BY timestamp DESC";
+    $chat_result = mysqli_query($con, $chat_sql);
+    $chat_messages = mysqli_fetch_all($chat_result, MYSQLI_ASSOC);
+
+
+
+function time_ago($timestamp) {
+    $current_time = time();
+    $message_time = strtotime($timestamp);
+    $time_difference = $current_time - $message_time;
+
+    if ($time_difference < 0) {
+        return "In the future";
+    }
+
+    $seconds = $time_difference;
+    $minutes = round($seconds / 60);
+    $hours = round($seconds / 3600);
+    $days = round($seconds / 86400);
+
+    if ($seconds < 60) {
+        return "Just now";
+    } elseif ($minutes < 60) {
+        return $minutes == 1 ? "1 minute ago" : "$minutes minutes ago";
+    } elseif ($hours < 24) {
+        return $hours == 1 ? "1 hour ago" : "$hours hours ago";
+    } elseif ($days < 7) {
+        return $days == 1 ? "1 day ago" : "$days days ago";
+    } else {
+        return date('M j, Y', $message_time);
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -61,6 +94,7 @@
                     <a href="#" class="dropdown-item">Settings</a>
                     <hr class="dropdown-divider">
                     <a href="../PHP/logout.php" class="dropdown-item logout">Logout</a>
+                    
                 </div>
             </div>
         </div>
@@ -79,7 +113,13 @@
                 <p class="profile-email"><?php echo htmlspecialchars($user['email']); ?></p>
                 <p class="profile-semester"><?php echo htmlspecialchars($user['semester']); ?> Semester</p>
                 <p class="profile-id">Student ID: <?php echo htmlspecialchars($user['student_id']); ?></p>
+                <div class="buttondiv">
+                    
+
                 <button class="btn btn-danger logout-btn" onclick="window.location.href='../PHP/logout.php'" id="logoutBtn">Logout</button>
+                </div>
+
+
             </div>
         </div>
     </section>
@@ -241,68 +281,32 @@
                     </div>
                 </section>
 
-                <!-- Recent Activity -->
-                <section class="recent-activity">
+                <!-- Chat -->
+                <section class="recent-activity" id="chat">
                     <div class="section-header">
-                        <h2 class="section-title">Recent Activity</h2>
-                        <a href="#" class="view-all">View All</a>
+                        <h2 class="section-title">Chats</h2>
+                        <form action="../PHP/chat.php" class="chat-form" method="POST">
+                            <input type="text" placeholder="send message..." class="chat-input" name="message">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="reset" class="btn btn-secondary" id="clearSearchBtn">Clear</button>
+                        </form>
                     </div>
                     
                     <div class="activity-feed">
+                        <?php foreach ($chat_messages as $message): ?>
                         <div class="activity-item">
                             <div class="activity-icon">👤</div>
                             <div class="activity-content">
                                 <p class="activity-text">
-                                    <strong>David Wilson</strong> joined your project 
-                                    <em>"AI Chatbot Development"</em>
+                                    <strong><?php echo htmlspecialchars($message['name']); ?></strong><br>
+                                    <em><?php echo htmlspecialchars($message['message']); ?></em>
                                 </p>
-                                <span class="activity-time">3 hours ago</span>
+                                <span class="activity-time" data-timestamp="<?php echo htmlspecialchars($message['timestamp']); ?>">
+                                    <?php echo time_ago($message['timestamp']); ?>
+                                </span>
                             </div>
                         </div>
-
-                        <div class="activity-item">
-                            <div class="activity-icon">💬</div>
-                            <div class="activity-content">
-                                <p class="activity-text">
-                                    New message from <strong>Emma Davis</strong> about 
-                                    <em>"Database Design Project"</em>
-                                </p>
-                                <span class="activity-time">6 hours ago</span>
-                            </div>
-                        </div>
-
-                        <div class="activity-item">
-                            <div class="activity-icon">📝</div>
-                            <div class="activity-content">
-                                <p class="activity-text">
-                                    You posted a new project: 
-                                    <em>"Machine Learning Research"</em>
-                                </p>
-                                <span class="activity-time">2 days ago</span>
-                            </div>
-                        </div>
-
-                        <div class="activity-item">
-                            <div class="activity-icon">⭐</div>
-                            <div class="activity-content">
-                                <p class="activity-text">
-                                    <strong>Lisa Zhang</strong> rated your collaboration 
-                                    <em>5 stars</em> for "E-commerce Website"
-                                </p>
-                                <span class="activity-time">3 days ago</span>
-                            </div>
-                        </div>
-
-                        <div class="activity-item">
-                            <div class="activity-icon">🎯</div>
-                            <div class="activity-content">
-                                <p class="activity-text">
-                                    Project <em>"Mobile Game Development"</em> was 
-                                    successfully completed
-                                </p>
-                                <span class="activity-time">1 week ago</span>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </section>
             </div>
@@ -414,6 +418,46 @@
             <span class="fab-option-text">Messages</span>
         </button>
     </div>
+<script>
+    // This function calculates the "time ago" value in the browser
+    function updateTimestampText(timestampElement) {
+        const rawTimestamp = timestampElement.getAttribute('data-timestamp');
+        const messageTime = new Date(rawTimestamp);
+        const now = new Date();
+        const seconds = Math.floor((now - messageTime) / 1000);
 
+        let result = '';
+        if (seconds < 60) {
+            result = "Just now";
+        } else if (seconds < 3600) {
+            const minutes = Math.floor(seconds / 60);
+            result = minutes === 1 ? "1 minute ago" : `${minutes} minutes ago`;
+        } else if (seconds < 86400) {
+            const hours = Math.floor(seconds / 3600);
+            result = hours === 1 ? "1 hour ago" : `${hours} hours ago`;
+        } else if (seconds < 604800) {
+            const days = Math.floor(seconds / 86400);
+            result = days === 1 ? "1 day ago" : `${days} days ago`;
+        } else {
+            // For older messages, show the full date
+            result = messageTime.toLocaleDateString();
+        }
+
+        timestampElement.textContent = result;
+    }
+
+    // This function finds all timestamp elements and updates them
+    function refreshTimestamps() {
+        document.querySelectorAll('.activity-time').forEach(element => {
+            updateTimestampText(element);
+        });
+    }
+
+    // Run the update function once when the page loads
+    refreshTimestamps();
+
+    // Set an interval to run the update every minute (60000 milliseconds)
+    setInterval(refreshTimestamps, 60000);
+</script>
 </body>
 </html>
