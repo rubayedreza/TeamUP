@@ -2,6 +2,7 @@
     session_start();
     include 'connection.php';
 
+    // We need to get the data from the fetch request's body
     $data = json_decode(file_get_contents('php://input'), true);
     $post_id = $data['post_id'];
     
