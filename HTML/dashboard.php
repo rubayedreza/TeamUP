@@ -25,6 +25,14 @@
     $chat_result = mysqli_query($con, $chat_sql);
     $chat_messages = mysqli_fetch_all($chat_result, MYSQLI_ASSOC);
 
+    $profilePhotoPath = "../img/" . $uid . "pp.png";
+
+    // Check if the file exists on the server
+    if (file_exists($profilePhotoPath)) {
+        $src = $profilePhotoPath;
+    } else {
+        $src = "../img/TeamUp.jpg";
+    }
 
 
 function time_ago($timestamp) {
@@ -104,7 +112,7 @@ function time_ago($timestamp) {
     <section class="profile-section">
         <div class="profile-container row-layout">
             <div class="profile-photo-wrapper">
-                <img src="../img/TeamUp.jpg" alt="Profile Photo" class="profile-photo" id="profilePhoto">
+                <img src="<?php echo htmlspecialchars($src); ?>" alt="Profile Photo" class="profile-photo" id="profilePhoto">
                 <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;">
             </div>
             <div class="profile-info">
@@ -115,8 +123,14 @@ function time_ago($timestamp) {
                 <p class="profile-id">Student ID: <?php echo htmlspecialchars($user['student_id']); ?></p>
                 <div class="buttondiv">
                     
-
+                <div class="bt">
+                    <form action="../PHP/upload.php"  method="post" enctype="multipart/form-data">
+                    <input type="file" name="image" class="hidden-input" id="imageInput" accept="image/*">
+                    <button type="submit" class="btn logout-btn profile-btn">Upload photo</button>
+                </form>
                 <button class="btn btn-danger logout-btn" onclick="window.location.href='../PHP/logout.php'" id="logoutBtn">Logout</button>
+                </div>
+                
                 </div>
 
 

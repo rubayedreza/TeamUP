@@ -174,7 +174,7 @@
             max-width: 80%;
             height: 40vh;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-            padding: 2rem 1.5rem;
+            padding: 11rem 1.5rem;
             display: flex;
             justify-content: center;
         }
@@ -212,23 +212,6 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.10);
         }
 
-       .buttondiv{
-           display: flex;
-           gap: 1rem;
-       }
-       .addp {
-           background: #815ef4;
-           color: #fff;
-           
-       }
-
-       .addp:hover {
-           background: #6b5ce5;
-       }
-
-        .edit-photo-btn:hover {
-            background: #ffeaea;
-        }
 
         .profile-info {
             text-align: left;
@@ -254,6 +237,46 @@
         .profile-email {
             color: #9ca3af;
         }
+
+        .hidden-input {
+    /* Hides the default file input element */
+    
+}
+
+.profile-btn {
+    /* Adds some styling to make the button look good */
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-btn:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         .logout-btn {
             margin-top: 1.2rem;
