@@ -88,7 +88,7 @@ function time_ago($timestamp) {
             </div>
             <div class="nav-user">
                 <div class="user-avatar">
-                    <span class="avatar-initials"><?php echo htmlspecialchars($user['first_name'][0] . $user['last_name'][0]); ?></span>
+                    <img src="<?php echo htmlspecialchars($src); ?>" alt="Profile Photo" class="profile-photo-s" id="profilePhoto"></span>
                 </div>
                 <div class="user-info">
                     <span class="user-name"><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
@@ -217,12 +217,12 @@ function time_ago($timestamp) {
                     <div class="requests-list">
                         <div class="request-card">
                             <div class="request-avatar">
-                                <span class="avatar-initials">SC</span>
+                                <span class="avatar-initials">RR</span>
                                 <div class="status-indicator online"></div>
                             </div>
                             <div class="request-content">
                                 <div class="request-header">
-                                    <h3 class="requester-name">Sarah Connor</h3>
+                                    <h3 class="requester-name">Rubayed Reza</h3>
                                     <span class="request-time">2 hours ago</span>
                                 </div>
                                 <p class="project-title"><strong>Project:</strong> Robotics Competition</p>
@@ -243,12 +243,12 @@ function time_ago($timestamp) {
 
                         <div class="request-card">
                             <div class="request-avatar">
-                                <span class="avatar-initials">MJ</span>
+                                <span class="avatar-initials">SR</span>
                                 <div class="status-indicator away"></div>
                             </div>
                             <div class="request-content">
                                 <div class="request-header">
-                                    <h3 class="requester-name">Mike Johnson</h3>
+                                    <h3 class="requester-name">Sumaiya Ritu</h3>
                                     <span class="request-time">5 hours ago</span>
                                 </div>
                                 <p class="project-title"><strong>Project:</strong> Web Development Portfolio</p>
@@ -269,12 +269,12 @@ function time_ago($timestamp) {
 
                         <div class="request-card">
                             <div class="request-avatar">
-                                <span class="avatar-initials">AL</span>
+                                <span class="avatar-initials">PS</span>
                                 <div class="status-indicator offline"></div>
                             </div>
                             <div class="request-content">
                                 <div class="request-header">
-                                    <h3 class="requester-name">Anna Lee</h3>
+                                    <h3 class="requester-name">Pritom Saha</h3>
                                     <span class="request-time">1 day ago</span>
                                 </div>
                                 <p class="project-title"><strong>Project:</strong> Mobile App Development</p>
@@ -335,12 +335,12 @@ function time_ago($timestamp) {
                 <div class="teammates-grid">
                     <div class="teammate-card">
                         <div class="teammate-avatar">
-                            <span class="avatar-initials">RK</span>
+                            <span class="avatar-initials">PS</span>
                             <div class="status-indicator online"></div>
                         </div>
                         <div class="teammate-info">
-                            <h3 class="teammate-name">Rachel Kim</h3>
-                            <p class="teammate-department">Software Engineering</p>
+                            <h3 class="teammate-name">Pritom Saha</h3>
+                            <p class="teammate-department">Computer Science & Engineering</p>
                             <p class="teammate-semester">6th Semester</p>
                             <div class="teammate-skills">
                                 <span class="skill-tag">Python</span>
@@ -360,11 +360,11 @@ function time_ago($timestamp) {
 
                     <div class="teammate-card">
                         <div class="teammate-avatar">
-                            <span class="avatar-initials">TM</span>
+                            <span class="avatar-initials">RR</span>
                             <div class="status-indicator away"></div>
                         </div>
                         <div class="teammate-info">
-                            <h3 class="teammate-name">Tom Mitchell</h3>
+                            <h3 class="teammate-name">Rubayed Reza</h3>
                             <p class="teammate-department">Computer Engineering</p>
                             <p class="teammate-semester">7th Semester</p>
                             <div class="teammate-skills">
@@ -385,11 +385,11 @@ function time_ago($timestamp) {
 
                     <div class="teammate-card">
                         <div class="teammate-avatar">
-                            <span class="avatar-initials">SP</span>
+                            <span class="avatar-initials">SR</span>
                             <div class="status-indicator online"></div>
                         </div>
                         <div class="teammate-info">
-                            <h3 class="teammate-name">Sophia Park</h3>
+                            <h3 class="teammate-name">Sumaiya Ritu</h3>
                             <p class="teammate-department">Computer Science & Engineering</p>
                             <p class="teammate-semester">8th Semester</p>
                             <div class="teammate-skills">

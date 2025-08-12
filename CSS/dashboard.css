@@ -211,6 +211,15 @@
             background: #fff;
             box-shadow: 0 2px 12px rgba(0,0,0,0.10);
         }
+        .profile-photo-s {
+            width: 50px;      /* Increased size */
+            height: 50px;     /* Increased size */
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #815ef4;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        }
 
 
         .profile-info {
